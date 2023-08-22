@@ -15,11 +15,25 @@ const Shop = () => {
             .then(res => res.json())
             .then(data => setProducts(data))
     },[])
+ 
+
     useEffect(() => {
         const storedCart = getShoppingCart();
-        console.log(storedCart);
- 
-    },[])
+        const savedCart = [];
+        // step 1: get id of the added Product
+        for(const id in storedCart){
+            // get product from products state by  using id
+            const addedProduct = products.find(product => product.id === id);
+            if(addedProduct){
+                // step 3: add quantity
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);
+            }
+            console.log('addedd product',addedProduct);
+        }
+        setCart(savedCart);
+    },[products])
 
     const handleAddToCart = (product) => {
        
@@ -28,12 +42,7 @@ const Shop = () => {
         addToDb(product.id);
 
     } 
-    let totalPrice = 0, shippingCost = 0 ;
    
-    for(let i = 0;i<cart.length;i++){
-        totalPrice += cart[i].price;
-        shippingCost += cart[i].shipping;
-    }
     
     return (
         <div className='shop-container'>
@@ -49,9 +58,7 @@ const Shop = () => {
                 </div>
                  <div className="cart-container">
                     <Cart 
-                    cart = {cart} 
-                    totalPrice = {totalPrice}
-                    shippingCost = {shippingCost}
+                    cart = {cart}
                     ></Cart>
                  </div>
               
