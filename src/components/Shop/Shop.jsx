@@ -2,29 +2,37 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
+import { addToDb, getShoppingCart } from '../../utilities/fakedb';
 
 const Shop = () => {
 
     const [products,setProducts] = useState([]);
     const [cart,setCart ] = useState([]);
-    const [totalPrice,setTotalPrice] = useState(0);
-    const [shippingCost,setShippingCost] = useState(0);
+    
 
     useEffect(() => {
         fetch('products.json')    
             .then(res => res.json())
             .then(data => setProducts(data))
     },[])
+    useEffect(() => {
+        const storedCart = getShoppingCart();
+        console.log(storedCart);
+ 
+    },[])
 
     const handleAddToCart = (product) => {
-        // console.log("product ID from shop.jsx file : ",product);
+       
         const newCart = [...cart,product];
         setCart(newCart);
-       
-        const newPrice = totalPrice + product.price;
-        const newShippingCost = shippingCost + product.shipping;
-        setShippingCost(newShippingCost);
-        setTotalPrice(newPrice);
+        addToDb(product.id);
+
+    } 
+    let totalPrice = 0, shippingCost = 0 ;
+   
+    for(let i = 0;i<cart.length;i++){
+        totalPrice += cart[i].price;
+        shippingCost += cart[i].shipping;
     }
     
     return (
