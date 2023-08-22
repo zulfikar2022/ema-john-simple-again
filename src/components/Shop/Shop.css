@@ -14,8 +14,15 @@
     margin-top: 20px;
 }
 
+
 .cart-container {
-    position: fixed;
-    right: 10%;
-    top: 90px;
+  background-color: #ff990052;
+  position: fixed;
+  right: 10px;
+  width: 300px;
+  padding-top: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 80vh;
+  border-radius: 10px;
 }

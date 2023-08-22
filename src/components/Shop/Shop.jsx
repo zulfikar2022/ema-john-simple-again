@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import './Shop.css';
 import Product from '../Product/Product';
+import Cart from '../Cart/Cart';
 
 const Shop = () => {
+
     const [products,setProducts] = useState([]);
     const [cart,setCart ] = useState([]);
+    const [totalPrice,setTotalPrice] = useState(0);
+    const [shippingCost,setShippingCost] = useState(0);
+
     useEffect(() => {
         fetch('products.json')    
             .then(res => res.json())
             .then(data => setProducts(data))
     },[])
+
     const handleAddToCart = (product) => {
         // console.log("product ID from shop.jsx file : ",product);
         const newCart = [...cart,product];
         setCart(newCart);
-        console.log('new cart from line 16 : ',newCart);
+       
+        const newPrice = totalPrice + product.price;
+        const newShippingCost = shippingCost + product.shipping;
+        setShippingCost(newShippingCost);
+        setTotalPrice(newPrice);
     }
     
     return (
@@ -29,10 +39,14 @@ const Shop = () => {
                             ></Product>)
                     }
                 </div>
-                <div className="cart-container">
-                    <h5>Orders summary</h5>
-                    <p>Selected Items : {cart.length}</p>
-                </div>
+                 <div className="cart-container">
+                    <Cart 
+                    cart = {cart} 
+                    totalPrice = {totalPrice}
+                    shippingCost = {shippingCost}
+                    ></Cart>
+                 </div>
+              
         </div>
     );
 };
