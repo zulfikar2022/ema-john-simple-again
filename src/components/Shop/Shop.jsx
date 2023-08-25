@@ -3,6 +3,7 @@ import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import Header from '../Header/Header';
 
 const Shop = () => {
 
@@ -46,6 +47,7 @@ const Shop = () => {
     
     return (
         <div className='shop-container'>
+      
                 <div className="products-container">
                    
                     {
