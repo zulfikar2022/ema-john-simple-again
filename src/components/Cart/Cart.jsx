@@ -23,7 +23,7 @@ const Cart = ({ cart, handleClearCart,children }) => {
 
     return (
         <div className='cart'>
-            <h5>Orders summary</h5>
+            <h5 className='text-2xl font-bold'>Orders summary</h5>
             <p>Selected Items : {quantity}</p>
             <p>Total Price : ${totalPrice}</p>
             <p>Total Shipping Charge : ${totalShipping}</p>

@@ -1,3 +1,4 @@
+
 .header {
     height: 80px;
     background-color: #1C2B35;
@@ -16,4 +17,11 @@
 .navigation a {
     color: white;
     text-decoration: none;
+}
+
+.active{
+    background-color: white;
+    color: black !important;
+    padding: 3px;
+    border-radius: 10px;
 }
