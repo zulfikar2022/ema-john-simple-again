@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import googleLogo from '../../images/google.png'
 import { AuthContext } from '../Providers/AuthProvider';
 import Swal from 'sweetalert2';
@@ -9,6 +9,11 @@ const Login = () => {
     const [showPass, setShowPass] = useState(false);
     const [error,setError] = useState('');
     const {signIn,setUser} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log('from logIn page : ',location);
+    const from = location.state?.from?.pathname || '/';
+
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -23,6 +28,7 @@ const Login = () => {
                 setUser(loggedUser);
                 console.log(loggedUser);
                 form.reset();
+                navigate(`${from}`,{replace:true});
             })
             .catch(err => {
                 setError(err.message);
